@@ -1,0 +1,70 @@
+@import '../../../../assets/sass-utils/variables.scss';
+@import '../../../../assets/sass-utils/mixins.scss';
+
+.co-main-header {
+  height: 70px;
+  width: 100vw;
+  position: fixed;
+  top: 0;
+  @include default-gradient(30deg);
+  z-index: z('main-header');
+
+  &__container {
+    height: 100%;
+    padding: 0 30px;
+    @include flexbox(flex, space-between, center);
+
+    &__mobile-menu-button,
+    &__notification-button {
+      display: none;
+
+      @include mqMaxWidth('md') {
+        display: block;
+      }
+    }
+
+    &__logo {
+      height: 33px;
+    }
+
+    &__menu {
+      @include flexbox(flex, initial, center);
+
+      &__dropdown {
+        width: 190px;
+        margin-top: 15px;
+        background-color: #aaa;
+        position: absolute;
+        background-color: $menu-back-color;
+        left: 50%;
+        transform: translate(-50%, 0);
+        visibility: hidden;
+        opacity: 0;
+        transition: 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        padding-left: 15px;
+
+        }
+
+      &__avatar {
+        cursor: pointer;
+        margin-left: 20px;
+        position: relative;
+      }
+
+      @include mqMaxWidth('md') {
+        display: none;
+      }
+    }
+
+    @include mqMaxWidth('md') {
+      @include flexbox(flex, space-between, center);
+      padding: 0 21px;
+    }
+  }
+
+  &__menu-mobile {
+    &__divider-container {
+      padding: 0 30px;
+    }
+  }
+}

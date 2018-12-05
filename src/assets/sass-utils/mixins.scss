@@ -1,0 +1,116 @@
+@import './variables.scss';
+
+/* ----------------------- FLEX BOX ------------------------ */
+@mixin flexbox($display, $justify-content, $align-items, $flex-direction: row) {
+  display: $display;
+  justify-content: $justify-content;
+  align-items: $align-items;
+  flex-direction: $flex-direction;
+}
+
+/* ----------------------- GRADIENTS ----------------------- */
+
+@mixin default-gradient($direction: $gradient-direction) {
+  background: $primary-color;
+  background: -webkit-linear-gradient(legacy-direction($direction), $secondary-color, $primary-color);
+  background: linear-gradient($direction, $secondary-color, $primary-color);
+}
+
+@mixin blue-gradient($direction: $gradient-direction) {
+  background: $tertiary-color;
+  background: -webkit-linear-gradient(legacy-direction($direction), $tertiary-color, $tertiary-color-dark);
+  background: linear-gradient($direction, $tertiary-color, $tertiary-color-dark);
+}
+
+@mixin menu-gradient($direction: $gradient-direction) {
+  background: $primary-color;
+  background: -webkit-linear-gradient(legacy-direction($direction), $primary-color-light, $primary-color);
+  background: linear-gradient($direction, $primary-color-light, $primary-color);
+}
+
+/* ------------------------ KEYFRAME ------------------------ */
+
+@mixin keyframe($name) {
+  @-webkit-keyframes #{$name} {
+    @content; 
+  }
+  @-moz-keyframes #{$name} {
+    @content;
+  }
+  @-ms-keyframes #{$name} {
+    @content;
+  }
+  @keyframes #{$name} {
+    @content;
+  }
+}
+
+/* ----------------------- ANIMATION ------------------------ */
+
+@mixin animation ($animation, $duration, $delay, $iteration-count, $timing-function) {
+  -webkit-animation-name: $animation;
+  -webkit-animation-duration: $duration;
+  -webkit-animation-delay: $delay;
+  -webkit-animation-iteration-count: $iteration-count;
+  -webkit-animation-timing-function: $timing-function;
+  -webkit-animation-fill-mode: forwards; /* this prevents the animation from restarting! */
+
+  -moz-animation-name: $animation;
+  -moz-animation-duration: $duration;
+  -moz-animation-delay: $delay;
+  -moz-animation-iteration-count: $iteration-count;
+  -moz-animation-timing-function: $timing-function;
+  -moz-animation-fill-mode: forwards; /* this prevents the animation from restarting! */
+
+  -o-animation-name: $animation;
+  -o-animation-duration: $duration;
+  -o-animation-delay: $delay;
+  -o-animation-iteration-count: $iteration-count;
+  -o-animation-timing-function: $timing-function;
+  -o-animation-fill-mode: forwards; /* this prevents the animation from restarting! */
+
+  animation-name: $animation;
+  animation-duration: $duration;
+  animation-delay: $delay;
+  animation-iteration-count: $iteration-count;
+  animation-timing-function: $timing-function;
+  animation-fill-mode: forwards; /* this prevents the animation from restarting! */
+}
+
+/* ----------------------- TRANSITION ----------------------- */
+
+@mixin transition($property: all, $duration: $default-animation-duration, $ease: linear){
+	-webkit-transition: $property $duration $ease;
+	-moz-transition: $property $duration $ease;
+	-o-transition: $property $duration $ease;
+	transition: $property $duration $ease;
+}
+
+/* ----------------------- MEDIA QUERY ----------------------- */
+
+@mixin mqMaxWidth($width) {
+  @if map_has_key($width-breakpoints, $width) {
+    $width: map_get($width-breakpoints, $width);
+    
+    @media only screen and (max-width: $width) {
+        @content;
+    }
+  }
+}
+
+/* ------------------------- Z-INDEX ------------------------- */
+
+@function z($element, $list:"") {
+  @if $list == "" {
+    $list: $z-indexes;
+  }
+
+  $z-index: index($list, $element);
+
+  @if $z-index {
+    @return $z-index;
+  }
+
+  @warn 'There is no item "#{$element}" in this list; choose one of: #{$list}';
+  @return null;
+}
